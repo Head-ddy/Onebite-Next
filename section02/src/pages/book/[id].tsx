@@ -2,6 +2,7 @@
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import style from './[id].module.css';
 import fetchOneBooks from '@/lib/fetch-one-book';
+import Head from 'next/head';
 
 const mockData = {
   id: 1,
@@ -26,7 +27,7 @@ const mockData = {
 
 //   return {
 //     paths,
-//     fallback: false, // true(일단 props없는 페이지 반환 후 props만 따로 계산해서 반환), false(무조건 없는 페이지), blocking(실시간으로 사전 렌더링 가능) 대체/대비책
+//     fallback: true, // true(일단 props없는 페이지 반환 후 props만 따로 계산해서 반환), false(무조건 없는 페이지), blocking(실시간으로 사전 렌더링 가능) 대체/대비책
 //     // false : 404 Not Found
 //     // true : SSR 방식 + 데이터가 없는 폴백 상태의 페이지부터 반환
 //     // blocking : SSR 방식
@@ -56,7 +57,15 @@ export default function Page({book}: InferGetServerSidePropsType<typeof getServe
 
   // const router = useRouter();
   // if(router.isFallback) {
-  //   return <div>로딩 중입니다.</div>
+  //   return <>
+  //     <Head>
+  //       <title>{title}</title>
+  //       <meta property='og:image' content={coverImgUrl} />
+  //       <meta property='og:title' content={title} />
+  //       <meta property='og:description' content={description} />
+  //     </Head>
+  //     <div>로딩 중입니다.</div>
+  //   </>
   // }
   if (!book) {
     return <div>책을 찾을 수 없습니다.</div>
@@ -73,15 +82,18 @@ export default function Page({book}: InferGetServerSidePropsType<typeof getServe
   } = book;
 
   return (
-    <div className={style.container}>
-      <div className={style.cover_img_container} style={{ backgroundImage: `url(${coverImgUrl})` }}>
-        <img src={coverImgUrl} alt={title} />
+    <>
+      
+      <div className={style.container}>
+        <div className={style.cover_img_container} style={{ backgroundImage: `url(${coverImgUrl})` }}>
+          <img src={coverImgUrl} alt={title} />
+        </div>
+        <div className={style.title}>{title}</div>
+        <div className={style.subTitle}>{subTitle}</div>
+        <div className={style.author}>{author} | {publisher}</div>
+        <div className={style.description}>{description}</div>
       </div>
-      <div className={style.title}>{title}</div>
-      <div className={style.subTitle}>{subTitle}</div>
-      <div className={style.author}>{author} | {publisher}</div>
-      <div className={style.description}>{description}</div>
-    </div>
+    </>
   )
 
 }
