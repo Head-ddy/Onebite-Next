@@ -27,6 +27,9 @@ const mockData = {
 //   return {
 //     paths,
 //     fallback: false, // true(일단 props없는 페이지 반환 후 props만 따로 계산해서 반환), false(무조건 없는 페이지), blocking(실시간으로 사전 렌더링 가능) 대체/대비책
+//     // false : 404 Not Found
+//     // true : SSR 방식 + 데이터가 없는 폴백 상태의 페이지부터 반환
+//     // blocking : SSR 방식
 //   }
 // }
 
