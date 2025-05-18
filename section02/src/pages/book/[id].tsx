@@ -35,6 +35,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const id = context.query!.id;
   const book = await fetchOneBooks(Number(id));
 
+  if (!book) {
+    return {
+      notFound: true, // 404 페이지로 이동
+    }
+  }
+
   return {
     props: {
       book,
@@ -45,6 +51,10 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
 export default function Page({book}: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
+  // const router = useRouter();
+  // if(router.isFallback) {
+  //   return <div>로딩 중입니다.</div>
+  // }
   if (!book) {
     return <div>책을 찾을 수 없습니다.</div>
   }
