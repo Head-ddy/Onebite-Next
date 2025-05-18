@@ -13,6 +13,23 @@ const mockData = {
   coverImgUrl: "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 }
 
+// export const getStaticPaths = async () => {
+//   // 정적 페이지 생성(SSG)을 위한 경로를 미리 생성
+//   // 이 함수는 빌드 시에만 실행됨
+//   // getStaticProps와 함께 사용됨
+
+//   const paths = [
+//     { params: { id: '1' } },
+//     { params: { id: '2' } },
+//     { params: { id: '3' } },
+//   ];
+
+//   return {
+//     paths,
+//     fallback: false, // true(일단 props없는 페이지 반환 후 props만 따로 계산해서 반환), false(무조건 없는 페이지), blocking(실시간으로 사전 렌더링 가능) 대체/대비책
+//   }
+// }
+
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
 
   const id = context.query!.id;
